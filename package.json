@@ -1,0 +1,23 @@
+{
+  "name": "open-position-voting",
+  "version": "1.0.0",
+  "description": "Система для публичного голосования с графиком позиции выступающего",
+  "main": "index.js",
+  "dependencies": {
+    "sockjs": "^0.3.15"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ershov-ilya/open-position-voting.git"
+  },
+  "author": "ILYA ERSHOV",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ershov-ilya/open-position-voting/issues"
+  },
+  "homepage": "https://github.com/ershov-ilya/open-position-voting#readme"
+}
