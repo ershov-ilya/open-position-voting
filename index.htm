@@ -6,5 +6,22 @@
 </head>
 
 <body>
+
+<script src="//cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
+<script>
+var sock = new SockJS('http://effetto.pro:8080/echo');
+ sock.onopen = function() {
+     console.log('open');
+ };
+ sock.onmessage = function(e) {
+     console.log('message', e.data);
+ };
+ sock.onclose = function() {
+     console.log('close');
+ };
+
+ sock.send('test');
+ sock.close();
+</script>
 </body>
 </html>
