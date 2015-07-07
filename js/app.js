@@ -1,4 +1,4 @@
-var sock = new SockJS('http://ershov.pw:8080/vote');
+﻿var sock = new SockJS('http://ershov.pw:8080/vote');
 
 var VOTE=(function(){
 	// Private
@@ -57,7 +57,9 @@ sock.onmessage = function(e) {
  console.log('message', e.data);
 };
 sock.onclose = function() {
- console.log('close');
+ $('button.btn-vote').attr('disabled','disabled');
+ $('#channel-head').text('Нет соединения');
+ $('#channel').remove();
 };
 
 
