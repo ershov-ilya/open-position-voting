@@ -3,25 +3,52 @@
 <head>
 <meta charset="utf-8">
 <title>Голосование</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/darkly/bootstrap.min.css">
+<link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
+<div class="container">
+    <div class="row" style="margin-top:20%; font-size:150%;">
+        <div class="col-sm-offset-1 col-sm-10 col-md-offset-4 col-md-4">
+        <button class="btn btn-lg btn-block btn-success btn-vote" tabindex="0" data-vote="+1"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></button>
+        <div class="countdown-wrap text-center">
+			<div id="countdown">
+			</div>
+		</div>
+        <button class="btn btn-lg btn-block btn-danger btn-vote" tabindex="0" data-vote="-1"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
+        </div>
+    </div>
+	
+	
+    <div class="row channel-row">
+        <div class="col-xs-4">
+			<button class="btn btn-lg btn-block btn-warning btn-channel" tabindex="0" data-channel="-1"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
+		</div>
+        <div class="col-xs-4 text-center">
+			<h4>Канал</h4>
+			<div class="channel-wrap ">
+				<div id="channel">
+				1
+				</div>
+			</div>
+		</div>
+        <div class="col-xs-4">
+			<button class="btn btn-lg btn-block btn-warning btn-channel" tabindex="0" data-channel="+1"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+        </div>
+    </div>
+</div>
 
-<script src="//cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/sockjs.min.js"></script>
+<script src="js/app.js"></script>
 <script>
-var sock = new SockJS('http://ershov.pw:8080/echo');
  sock.onopen = function() {
      console.log('open');
  };
- sock.onmessage = function(e) {
-     console.log('message', e.data);
- };
- sock.onclose = function() {
-     console.log('close');
- };
-
- sock.send('test');
- sock.close();
 </script>
 </body>
 </html>

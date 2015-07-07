@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Голосование</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/darkly/bootstrap.min.css">
+<link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="row" style="margin-top:20%; font-size:150%;">
+        <div class="col-sm-offset-1 col-sm-10 col-md-offset-4 col-md-4">
+        </div>
+        <div class="counter-wrap text-center">
+			<div id="counter">
+			</div>
+		</div>
+    </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/sockjs.min.js"></script>
+<script src="../js/app.js"></script>
+<script>
+document.vote_user={admin:true};
+sock.onopen = function() {
+	sock.send('{"command":"admin"}');
+	console.log('open'); 
+};
+</script>
+</body>
+</html>

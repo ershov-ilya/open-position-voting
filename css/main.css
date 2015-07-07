@@ -1,0 +1,32 @@
+  @charset "utf-8";
+/* CSS Document */
+
+#countdown{
+	display:none;
+	font-size:60px;
+	color:#fff;
+}
+
+#channel{
+	font-size:40px;
+	color:#fff;
+}
+
+.countdown-wrap{
+	min-height:30px;
+}
+
+.btn-vote{
+  height: 80px;
+  font-size: 40px;
+}
+
+
+.channel-row{
+	margin-top:50px;
+}
+
+.btn-channel{
+  font-size: 40px;
+  height: 90px;
+}
