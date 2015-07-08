@@ -1,0 +1,22 @@
+SockJS v0.3.15 bound to "/vote"
+GET /vote/info?t=1436351418116 8ms 200
+POST /vote/409/vstfjzqx/xhr_streaming?t=1436351418172 4ms (unfinished)
+conn time: 1436351418183
+new connection #0
+admin registered: #0
+admin chanel: #1
+POST /vote/409/vstfjzqx/xhr_send?t=1436351418189 3ms 204
+GET /vote/info?t=1436351448487 1ms 200
+GET /vote/373/xo1revo5/websocket 3ms (unfinished)
+conn time: 1436351448757
+new connection #1
+channel #1, Rating: 1
+user Закрыто соединение #1
+Всего соединений: 1
+GET /vote/info?t=1436351480569 1ms 200
+POST /vote/598/3wqq1dnt/xhr_streaming?t=1436351480596 2ms (unfinished)
+conn time: 1436351480602
+new connection #2
+POST /vote/598/3wqq1dnt/xhr_send?t=1436351480610 1ms 204
+channel #1, Rating: 2
+POST /vote/598/3wqq1dnt/xhr_send?t=1436351481489 0ms 204
