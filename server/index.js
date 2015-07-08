@@ -79,8 +79,8 @@ echo.on('connection', function(conn) {
 					if(data.vote && data.channel){
 						if(typeof RATING[data.channel]=='undefined') RATING[data.channel]=0;
 						
-						if(data.vote=='+1') RATING[data.channel]++;
-						if(data.vote=='-1') RATING[data.channel]--;
+						if(data.vote=='+1') RATING[data.channel]+=1;
+						if(data.vote=='-1') RATING[data.channel]-=1;
 						console.log('channel #'+data.channel+', Rating: '+RATING[data.channel]);
 					}
 				break;
@@ -98,8 +98,8 @@ echo.on('connection', function(conn) {
 	
     conn.on('close', function() {
 		if(conn.user.type=='admin'){
+			console.log('Закрытие канала #'+channel_arr[conn.user.id]);
 			channel_arr.remove(conn.user.id);
-			console.log('Закрыт канал #'+conn.user.id);
 			admin_arr.splice(conn.user.id,1);
 			RATING.splice(conn.user.id,1);
 			clearInterval(conn.user.interval);			

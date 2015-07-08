@@ -3,9 +3,18 @@
 var VOTE=(function(){
 	// Private
 	var admin=false;
-	var countdown=0;
-	var channel=1;
-	var RATING=0;
+	countdown=0,
+	channel=1,
+	RATING=0,
+	history_max=360,
+	peak_max=100,
+	peak_min=-100,
+	HISTORY=[];
+	for(var i=0; i<history_max; i++){
+		HISTORY.push([0,0]);
+	}
+	//console.log(HISTORY);
+	
 	
 	function btnEnable(){
 		$('button.btn-vote').removeAttr('disabled');
@@ -60,7 +69,7 @@ var VOTE=(function(){
 		parse:function(message){ // Приём сообщений от сервера
 			//alert(message);
 			var data=JSON.parse(message);
-			console.log(data);
+			//console.log(data);
 			if(data.channel){
 				channel=data.channel;
 				$('#channel').text('#'+channel);
@@ -72,8 +81,23 @@ var VOTE=(function(){
 			
 			if(typeof data.rating != 'undefined' && data.rating != 'undefined'){
 				RATING=data.rating;
+				if(RATING>peak_max) peak_max=RATING;
+				if(RATING<peak_min) peak_min=RATING;
+				
+				HISTORY=HISTORY.slice(1);
+				HISTORY.push([0,+RATING]);
 				$('#rating').text(RATING);
 			}
+		},
+		get:function(){
+			var res=HISTORY;
+			for(var i=0; i<history_max; i++){
+				res[i][0]=i;
+			}
+			return res;
+		},
+		getAxisY:function(){
+			return {min: +peak_min-10, max: +peak_max+10};
 		}
 	};
 	return PUBLIC;
@@ -90,7 +114,7 @@ sock.onmessage = function(e) {
 
 sock.onclose = function() {
  $('button.btn-vote').attr('disabled','disabled');
- $('#channel-head').text('Нет соединения');
+ $('#channel-head').html('<a href="/vote/">Нет соединения</a>');
  $('#channel').remove();
 };
 

@@ -3,31 +3,34 @@
 <head>
 <meta charset="utf-8">
 <title>Голосование</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/darkly/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/cerulean/bootstrap.min.css">
 <link rel="stylesheet" href="../css/main.css">
 </head>
 
 <body>
 <div class="container">
     <div class="row" style="margin-top:20px; font-size:40px;">
-		<h2>Адрес в браузере для голосования: <kbd class="link">efe.bz/vote</kbd></h2>
 		<h1>
 		Канал <kbd class="channel-kbd"><span id="channel">соединение...</span></kbd>
-		Голос аудитории: <kbd id="rating"></kbd>
+		Голос аудитории: <button id="rating" class="btn btn-lg btn-success"></button>
 		</h1>
+		<h2>Ссылка в браузере для голосования: <kbd class="link"><a href="/vote/" target="_blank">efe.bz/vote</a></kbd></h2>
         <div class="col-sm-offset-1 col-sm-10 col-md-offset-4 col-md-4">
         </div>
-        <div class="counter-wrap text-center">
-			<div id="counter">
-			</div>
-		</div>
     </div>
-</div>
+	<div class="row">
+		<div class="demo-container">
+			<div id="placeholder" class="demo-placeholder"></div>
+		</div>
+	</div>
+</div><!-- /container -->
+
+
 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/sockjs.min.js"></script>
+<script src="../assets/flot/jquery.flot.js"></script>
 <script src="../js/app.js"></script>
 <script>
 document.vote_user={admin:true};
@@ -35,6 +38,77 @@ sock.onopen = function() {
 	sock.send('{"command":"admin"}');
 	console.log('open'); 
 };
+
+	// We use an inline data source in the example, usually data would
+	// be fetched from a server
+
+	var data = [],
+		totalPoints = 360;
+	var updateInterval = 1000;
+
+
+	function getRandomData() {
+
+		if (data.length > 0)
+			data = data.slice(1);
+
+		// Do a random walk
+
+		while (data.length < totalPoints) {
+
+			var prev = data.length > 0 ? data[data.length - 1] : 50,
+				y = prev + Math.random() * 10 - 5;
+
+			if (y < 0) {
+				y = 0;
+			} else if (y > 100) {
+				y = 100;
+			}
+
+			data.push(y);
+		}
+
+		// Zip the generated y values with the x values
+
+		var res = [];
+		for (var i = 0; i < data.length; ++i) {
+			res.push([i, data[i]])
+		}
+
+		return res;
+	}
+
+	var plot = $.plot("#placeholder", [VOTE.get()], {
+		series: {
+			shadowSize: 0	// Drawing is faster without shadows
+		},
+		yaxis: {
+			min: -300,
+			max: 300
+		},
+		xaxis: {
+			show: false
+		}
+	});
+
+	function update() {
+		//var d=[getRandomData()];
+		//console.log(d);
+		//plot.setData(d);
+		plot.setData([VOTE.get()]);
+
+		// Since the axes don't change, we don't need to call plot.setupGrid()
+		var axis=VOTE.getAxisY();
+		plot.getAxes().yaxis.options.min = axis.min;
+		plot.getAxes().yaxis.options.max = axis.max; 
+		plot.setupGrid();
+
+		plot.draw();
+		setTimeout(update, updateInterval);
+	}
+
+	update();
+
 </script>
 </body>
 </html>
