@@ -47,7 +47,12 @@ echo.on('connection', function(conn) {
 	conn.write('{"id":"'+conn.user.id+'"}');
 	console.log('new connection #'+conn.user.id);
 	
+	
     conn.on('data', function(message) {
+		function serve(){
+			conn.write('{"rating":"'+RATING[conn.user.channel]+'"}');
+		}
+	
 		// Ты админ?
 		var data=JSON.parse(message);
 		if(data.command){
@@ -61,10 +66,14 @@ echo.on('connection', function(conn) {
 					console.log('admin registered: #'+conn.user.id);
 					
 					conn.user.channel=channel_arr.vacant(1); // Поиск свободного канала, начиная с 1
+					RATING[conn.user.channel]=0;
 					channel_arr[conn.user.channel]=conn.user.id; // Канал админится содинением num
 					console.log('admin chanel: #'+conn.user.channel);
-					conn.write('{"channel":"'+conn.user.channel+'"}');
+					conn.write('{"channel":"'+conn.user.channel+'","answer":"admin"}');
 					last_channel=conn.user.channel;
+					
+					//console.log(channel_arr);
+					conn.user.interval=setInterval(serve, 1000);
 				break;
 				case 'vote':
 					if(data.vote && data.channel){
@@ -77,7 +86,7 @@ echo.on('connection', function(conn) {
 				break;
 				case 'ask':
 					if(conn.user.type=='admin'){
-						conn.write('{"rating":"'+RATING[conn.user.channel]+'"}');
+						conn.write('{"rating":"'+RATING[data.channel]+'"}');
 					}
 				break;
 			}
@@ -92,6 +101,9 @@ echo.on('connection', function(conn) {
 			channel_arr.remove(conn.user.id);
 			console.log('Закрыт канал #'+conn.user.id);
 			admin_arr.splice(conn.user.id,1);
+			RATING.splice(conn.user.id,1);
+			clearInterval(conn.user.interval);			
+			//console.log(channel_arr);
 		}
 		
 		conn_arr.splice(conn.user.id,1);

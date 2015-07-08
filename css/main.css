@@ -32,6 +32,8 @@
 .btn-channel{
   font-size: 40px;
   height: 90px;
+  padding:10px 0;
+  overflow:hidden;
 }
 
 .link{

@@ -1,10 +1,12 @@
-﻿var sock = new SockJS('http://ershov.pw:8080/vote');
+﻿var sock = new SockJS('http://efe.bz:8080/vote');
 
 var VOTE=(function(){
 	// Private
 	var admin=false;
 	var countdown=0;
 	var channel=1;
+	var RATING=0;
+	
 	function btnEnable(){
 		$('button.btn-vote').removeAttr('disabled');
 		$('#countdown').text(countdown).slideUp();
@@ -14,6 +16,11 @@ var VOTE=(function(){
 			$('#countdown').text(countdown);
 			countdown--;
 		}
+		/*
+		if(admin){
+			sock.send('{"command":"ask","channel":"'+channel+'"}');
+		}
+		*/
 	}
 	
 	function listenButtons(){
@@ -48,21 +55,32 @@ var VOTE=(function(){
 			setTimeout(btnEnable, 10000);
 		},
 		ask: function(){
-			sock.send('{"command":"ask"}');
+			sock.send('{"command":"ask","channel":"'+channel+'"}');
 		},
 		parse:function(message){ // Приём сообщений от сервера
+			//alert(message);
 			var data=JSON.parse(message);
 			console.log(data);
 			if(data.channel){
 				channel=data.channel;
-				$('#channel').text(channel);
+				$('#channel').text('#'+channel);
 			}
-			//alert(message);
+			
+			if(data.answer=='admin'){
+				admin=true;
+			}
+			
+			if(typeof data.rating != 'undefined' && data.rating != 'undefined'){
+				RATING=data.rating;
+				$('#rating').text(RATING);
+			}
 		}
 	};
 	return PUBLIC;
 })();
 
+/* End of VOTE
+---------------------------------------------------------------*/
 
 sock.onmessage = function(e) {
  //console.log('message', e.data);
