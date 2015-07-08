@@ -55,7 +55,9 @@ var VOTE=(function(){
 
 sock.onmessage = function(e) {
  console.log('message', e.data);
+ //alert(e.data);
 };
+
 sock.onclose = function() {
  $('button.btn-vote').attr('disabled','disabled');
  $('#channel-head').text('Нет соединения');

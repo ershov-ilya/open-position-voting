@@ -47,7 +47,8 @@
 <script src="js/app.js"></script>
 <script>
  sock.onopen = function() {
-     console.log('open');
+ 	sock.send('{"command":"user"}');
+    console.log('open');
  };
 </script>
 </body>

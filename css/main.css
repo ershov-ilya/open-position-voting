@@ -26,7 +26,18 @@
 	margin-top:50px;
 }
 
+.channel-kbd, .channel-kbd #channel{padding:10px; color:#78c3fd;}
+
+
 .btn-channel{
   font-size: 40px;
   height: 90px;
+}
+
+.link{
+ color:#78c3fd;
+}
+
+kbd#rating{
+	font-size:100px;
 }
