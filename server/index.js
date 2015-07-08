@@ -9,9 +9,10 @@ Array.prototype.remove=function(key){
   }
 }
 
-Array.prototype.vacant=function(){
+Array.prototype.vacant=function(start){
+  if(typeof start == 'undefined') start=0;
   var i;
-  for(i=0; i<9999; i++){
+  for(i=start; i<9999; i++){
     if(typeof this[i] == 'undefined') break;
   }
   return i;
@@ -43,7 +44,7 @@ echo.on('connection', function(conn) {
 	conn.user.channel=1;
 	conn_arr[conn.user.id]=conn;
 	
-	conn.write('ID #'+conn.user.id);
+	conn.write('{"id":"'+conn.user.id+'"}');
 	console.log('new connection #'+conn.user.id);
 	
     conn.on('data', function(message) {
@@ -59,9 +60,10 @@ echo.on('connection', function(conn) {
 					conn.user.type='admin';
 					console.log('admin registered: #'+conn.user.id);
 					
-					conn.user.channel=channel_arr.vacant(); // Поиск свободного канала
+					conn.user.channel=channel_arr.vacant(1); // Поиск свободного канала, начиная с 1
 					channel_arr[conn.user.channel]=conn.user.id; // Канал админится содинением num
 					console.log('admin chanel: #'+conn.user.channel);
+					conn.write('{"channel":"'+conn.user.channel+'"}');
 					last_channel=conn.user.channel;
 				break;
 				case 'vote':

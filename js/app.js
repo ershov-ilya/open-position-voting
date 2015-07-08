@@ -2,6 +2,7 @@
 
 var VOTE=(function(){
 	// Private
+	var admin=false;
 	var countdown=0;
 	var channel=1;
 	function btnEnable(){
@@ -35,6 +36,11 @@ var VOTE=(function(){
 		
 	// Public
 	var PUBLIC = {
+		init:function(config){
+			//console.log('VOTE init()');
+			setInterval(tick,1000);
+			listenButtons();
+		},
 		btnDisable: function(){
 			$('button.btn-vote').attr('disabled','disabled');
 			countdown=10;
@@ -44,18 +50,24 @@ var VOTE=(function(){
 		ask: function(){
 			sock.send('{"command":"ask"}');
 		},
-		init:function(config){
-			console.log('VOTE init()');
-			setInterval(tick,1000);
-			listenButtons();
+		parse:function(message){ // Приём сообщений от сервера
+			var data=JSON.parse(message);
+			console.log(data);
+			if(data.channel){
+				channel=data.channel;
+				$('#channel').text(channel);
+			}
+			//alert(message);
 		}
 	};
 	return PUBLIC;
 })();
 
+
 sock.onmessage = function(e) {
- console.log('message', e.data);
+ //console.log('message', e.data);
  //alert(e.data);
+ VOTE.parse(e.data);
 };
 
 sock.onclose = function() {
