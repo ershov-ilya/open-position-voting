@@ -45,7 +45,7 @@ var VOTE=(function(){
 				if(channel_action=="-1") channel--;
 				if(channel<1) channel=1;
 				if(channel>100) channel=100;
-				$('#channel').text(channel);
+				$('#channel').text('#'+channel);
 			}
 		});
 	}
@@ -115,7 +115,7 @@ sock.onmessage = function(e) {
 sock.onclose = function() {
  $('button.btn-vote').attr('disabled','disabled');
  $('#channel-head').html('<a href="/vote/" class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Нет соединения</a>');
- $('.channel-kbd').text('Соединение разорвано');
+ $('.channel-kbd').html('<a href="/vote/admin/">Соединение разорвано</a>');
  $('#channel').remove();
 };
 
