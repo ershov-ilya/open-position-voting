@@ -36,7 +36,7 @@ echo.on('connection', function(conn) {
 	conn.time.open=date.valueOf();
 	conn.time.action=date.valueOf();
 	console.log('conn time: '+conn.time.action);
-
+	
 	conn.user={};
 	conn.user.id=num;
 	num++;
@@ -47,6 +47,18 @@ echo.on('connection', function(conn) {
 	conn.write('{"id":"'+conn.user.id+'"}');
 	console.log('new connection #'+conn.user.id);
 	
+	// Время жизни канала
+	setTimeout(function(){
+		var id=conn.user.id;
+		console.log('Закрытие соединения по таймеру #'+conn.user.id);
+		/*
+		channel_arr.remove(id);
+		admin_arr.splice(id,1);
+		RATING.splice(id,1);
+		clearInterval(conn.user.interval);
+		*/		
+		conn.close();
+	},7200000); // 60сек * 60 мин * 2 часа = 7200000
 	
     conn.on('data', function(message) {
 		function serve(){
