@@ -10,13 +10,15 @@
 <body>
 <div class="container">
     <div class="row" style="margin-top:20px; font-size:40px;">
-		<h1>
-		Канал <kbd class="channel-kbd"><span id="channel">соединение...</span></kbd>
-		Голос аудитории: <button id="rating" class="btn btn-lg btn-success"></button>
-		</h1>
-		<h2>Ссылка в браузере для голосования: <kbd class="link"><a href="/vote/" target="_blank">efe.bz/vote</a></kbd></h2>
-        <div class="col-sm-offset-1 col-sm-10 col-md-offset-4 col-md-4">
-        </div>
+		<div style="max-width:970px; margin:0 auto;">
+			<h1>
+			Канал <kbd class="channel-kbd"><span id="channel">соединение...</span></kbd>
+			Голос аудитории: <button id="rating" class="btn btn-lg btn-success"></button>
+			</h1>
+			<h2>Ссылка в браузере для голосования: <kbd class="link"><a href="/vote/" target="_blank">efe.bz/vote</a></kbd></h2>
+			<div class="col-sm-offset-1 col-sm-10 col-md-offset-4 col-md-4">
+			</div>
+		</div>
     </div>
 	<div class="row">
 		<div class="demo-container">
@@ -24,9 +26,25 @@
 		</div>
 	</div>
 	
-	<div class="row text-right author">
-	<p>Разработал <a href="https://effetto.pro/professionals/ershov.ilya?utm_source=efe.bz&utm_medium=author&utm_campaign=система%20голосования&utm_term=разработал%20Илья%20Ершов" target="_blank">Илья Ершов</a></p>
+	<div class="row">
+		<div class="col-sm-offset-1 col-sm-10">
+			<div class="text-right author">
+			<p>Разработал <a href="https://effetto.pro/professionals/ershov.ilya?utm_source=efe.bz&utm_medium=author&utm_campaign=система%20голосования&utm_term=разработал%20Илья%20Ершов" target="_blank">Илья Ершов</a></p>
+			</div>
+			<h2>Как использовать</h2>
+			<p><b>Основная идея:</b> показывать групповое мнение аудитории о живом докладе на конференции.</p>
+			<p>Первый кто открывает страницу с графиком - открывает канал и является единственным его администратором, при обновлении страницы открывается новый канал, новый график</p>
+			<p>Аудитории предлагается открыть на своих смартфонах ссылку <a href="/vote/" target="_blank">efe.bz/vote</a> для общего голосования с помощью своих смартфонов или планшетов.</p>
+			<p>Система многоканальная, по умолчанию голосующие подключаются к последнему открытому каналу, но могут вручную настроить любой канал для голосования.</p>
+			<p>Аудитория голосует по ходу выступления, ширина графика 10 минут.</p>
+			<p>Сервис бесплатный работает в режиме тестирования</p>
+			<p>Максимальное время жизни всех соединений: 2 часа.</p>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+		</div>
 	</div>
+	
 	
 </div><!-- /container -->
 
@@ -48,7 +66,7 @@ sock.onopen = function() {
 	// be fetched from a server
 
 	var data = [],
-		totalPoints = 360;
+		totalPoints = 600;
 	var updateInterval = 1000;
 
 

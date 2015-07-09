@@ -6,9 +6,9 @@ var VOTE=(function(){
 	countdown=0,
 	channel=1,
 	RATING=0,
-	history_max=360,
-	peak_max=100,
-	peak_min=-100,
+	history_max=600,
+	peak_max=50,
+	peak_min=-50,
 	HISTORY=[];
 	for(var i=0; i<history_max; i++){
 		HISTORY.push([0,0]);
@@ -114,7 +114,7 @@ sock.onmessage = function(e) {
 
 sock.onclose = function() {
  $('button.btn-vote').attr('disabled','disabled');
- $('#channel-head').html('<a href="/vote/">Нет соединения</a>');
+ $('#channel-head').html('<a href="/vote/" class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Нет соединения</a>');
  $('.channel-kbd').text('Соединение разорвано');
  $('#channel').remove();
 };
