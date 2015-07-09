@@ -115,6 +115,7 @@ sock.onmessage = function(e) {
 sock.onclose = function() {
  $('button.btn-vote').attr('disabled','disabled');
  $('#channel-head').html('<a href="/vote/">Нет соединения</a>');
+ $('.channel-kbd').text('Соединение разорвано');
  $('#channel').remove();
 };
 
